@@ -3,6 +3,7 @@
 
 import os
 import hmac
+from hashlib import sha1
 
 import tornado.web
 import tornado.options
@@ -21,6 +22,9 @@ def hook():
 class WebHookHandler(tornado.web.RequestHandler):
     def post(self):
         hub_signature = self.request.headers.get('X-Hub-Signature')
+        digestmod, hexdigest = hub_signature.split('=')
+        if digestmod != 'sha1':
+            raise tornado.web.HTTPError(404)
         github_event = self.request.headers.get('X-Github-Event')
         delivery_id = self.request.headers.get('X-Github-Delivery')
         payload = self.request.body
@@ -28,12 +32,11 @@ class WebHookHandler(tornado.web.RequestHandler):
         print github_event
         print delivery_id
         print payload
-        if hmac.new(payload, options.secret) != hub_signature:
+        if hmac.new(options.secret, payload, sha1).hexdigest() != hexdigest:
             raise tornado.web.HTTPError(403)
         else:
             hook()
     def get(self):
-        print 'fuck'
         self.write('hello')
 
 
