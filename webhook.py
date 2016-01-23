@@ -18,7 +18,6 @@ define('secret', default='njoj-blog', help='hook\'s secret')
 def hook():
     os.system('git pull')
     os.system('hexo g')
-    os.system('service nginx restart')
 
 class WebHookHandler(tornado.web.RequestHandler):
     def post(self):
