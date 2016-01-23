@@ -32,21 +32,25 @@ class WebHookHandler(tornado.web.RequestHandler):
             raise tornado.web.HTTPError(403)
         else:
             hook()
+    def get(self):
+        print 'fuck'
+        self.write('hello')
+
 
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
-                (r'/refresh', ),
-                ]
+            (r'/refresh', WebHookHandler),
+        ]
         settings = dict(
-                debug = False
-                )
+            debug = True
+        )
         tornado.web.Application.__init__(self, handlers, **settings)
 
 
 if __name__ == '__main__':
     tornado.options.parse_command_line()
-    http_server = tornado.httpserver.HTTPServer(Application)
+    http_server = tornado.httpserver.HTTPServer(Application())
     http_server.listen(options.port)
     instance = tornado.ioloop.IOLoop.instance()
     tornado.autoreload.start(instance)
