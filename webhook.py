@@ -18,6 +18,7 @@ define('secret', default='njoj-blog', help='hook\'s secret')
 def hook():
     os.system('git pull')
     os.system('hexo g')
+    os.system('service nginx restart')
 
 class WebHookHandler(tornado.web.RequestHandler):
     def post(self):
@@ -28,10 +29,6 @@ class WebHookHandler(tornado.web.RequestHandler):
         github_event = self.request.headers.get('X-Github-Event')
         delivery_id = self.request.headers.get('X-Github-Delivery')
         payload = self.request.body
-        print hub_signature
-        print github_event
-        print delivery_id
-        print payload
         if hmac.new(options.secret, payload, sha1).hexdigest() != hexdigest:
             raise tornado.web.HTTPError(403)
         else:
