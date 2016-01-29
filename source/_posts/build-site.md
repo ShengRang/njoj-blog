@@ -1,4 +1,4 @@
-title: 建立过程
+title: 建站过程
 date: 2016-01-23 12:01:13
 tags: [OJ]
 ---
@@ -7,7 +7,7 @@ tags: [OJ]
 于是 [blog](http://www.njoj.org) 留一个静态页. 放一些ACM算法上的分享, 也可能放一些OJ组的分享
 
 网站用 [Hexo](http://hexo.io/) 搭建.
-项目在 [GitHub](https://github.com/ShengRang/njoj-blog) 上托管.
+项目在 [GitHub](https://github.com/NJUST-FishTeam/njoj-blog) 上托管.
 并且使用 `GitHub WebHook` 自动更新.
 <!-- more -->
 ### Hexo
@@ -33,6 +33,8 @@ npm install
 使用 [apollo](https://github.com/pinggod/hexo-theme-apollo)主题. 这个主题抄的 [vuejs.org](http://cn.vuejs.org) . 比较清新.
 
 fork之后进行了一些定制. 比如添加了备案信息的footer. 这个主题的css用scss写的, 所以修改了css需要gulp重新构建.
+
+修改过的主题在 [GitHub](https://github.com/ShengRang/hexo-theme-apollo) 托管
 
 ##### 写作
 ```bash
